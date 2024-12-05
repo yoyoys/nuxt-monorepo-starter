@@ -1,0 +1,38 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".nuxt/**", ".output/**", ".histoire/dist"]
+    },
+    "test": {
+      "cache": false
+    },
+    "test:watch": {
+      "cache": false
+    },
+    "test:watch:ui": {
+      "cache": false
+    },
+    "test:e2e": {
+      "cache": false
+    },
+    "test:e2e:ui": {
+      "cache": false
+    },
+    "lint": {
+      "outputs": []
+    },
+    "dev": {
+      "dependsOn": [],
+      "cache": false
+    },
+    "start": {
+      "dependsOn": ["build"]
+    },
+    "typecheck": {
+      "outputs": []
+    }
+  },
+  "globalDependencies": ["pnpm-lock.yaml"]
+}

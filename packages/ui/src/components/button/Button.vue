@@ -1,0 +1,55 @@
+<script lang="ts" setup>
+import type { ButtonIconSize, ButtonType } from './Button.model';
+import IconSpinner from '@ui/components/icon/Spinner.vue';
+import { ButtonIconSizes, ButtonTypes } from './Button.model';
+
+withDefaults(defineProps<{
+  prefix: string;
+  type?: ButtonType;
+  iconSize?: ButtonIconSize;
+  loading?: boolean;
+  disabled?: boolean;
+}>(), {
+  type: () => ButtonTypes.Primary,
+  iconSize: () => ButtonIconSizes.Normal,
+  loading: false,
+  disabled: false,
+});
+
+const emit = defineEmits<{
+  (e: 'click'): void;
+}>();
+
+const classes = {
+  primary: 'bg-primary text-white w-full border-primary border-2 border-solid rounded-md active:bg-orange-700 active:border-orange-700',
+  secondary: 'bg-transparent text-primary w-full border-primary border-2 border-solid rounded-md active:text-orange-700 active:border-orange-700',
+  tertiary: 'bg-white text-gray-600 w-full border-2 border-gray-400 border-solid rounded-full',
+  quaternary: 'bg-white text-gray-600 border-2 border-gray border-solid rounded-full shadow-lg',
+};
+
+const iconSizeClasses = {
+  small: 'mr-2 h-2 w-2',
+  normal: 'mr-2 h-4 w-4',
+};
+const onClick = () => {
+  emit('click');
+};
+</script>
+
+<template>
+  <button
+    :id="`${prefix}ButtonButton`"
+    class="overflow-ellipsis mb-0.5 h-3 flex cursor-pointer items-center justify-center overflow-hidden whitespace-nowrap p-4 text-lg transition-opacity focus:outline-none focus:ring"
+    :class="[{ 'opacity-20 cursor-not-allowed': disabled }, classes[type]]"
+    :disabled="disabled"
+    @click="onClick"
+  >
+    <IconSpinner v-if="loading" class="h-2 w-2" />
+    <div v-else class="flex items-center justify-center gap-0.25">
+      <div v-if="$slots.icon" :class="iconSizeClasses[iconSize]">
+        <slot name="icon" />
+      </div>
+      <slot>Button Text</slot>
+    </div>
+  </button>
+</template>

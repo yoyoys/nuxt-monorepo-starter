@@ -1,0 +1,55 @@
+@import 'animate.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#app {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+:root {
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+}
+
+/*
+* {
+  -moz-osx-font-smoothing: auto;
+  -webkit-font-smoothing: antialiased;
+} */
+
+.scroll-area {
+  max-height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #bcbcbc;
+    border-radius: 20px;
+  }
+}

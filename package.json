@@ -1,0 +1,67 @@
+{
+  "name": "nuxt-monorepo-starter",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@9.9.0",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=8"
+  },
+  "scripts": {
+    "build": "dotenv -- turbo run build",
+    "dev": "dotenv -- turbo run dev --parallel",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint": "eslint .",
+    "lint:turborepo": "turbo run lint",
+    "lint:inspector": "npx @eslint/config-inspector@latest",
+    "lint:monorepo": "pnpm sherif",
+    "preinstall": "npx only-allow pnpm",
+    "release": "tsx scripts/release.ts",
+    "prepare": "simple-git-hooks",
+    "start:apps": "turbo run start --parallel --filter='./apps/*'",
+    "start:nuxt-app": "dotenv -- turbo run start --filter nuxt-app",
+    "start:storybook": "turbo run start --filter storybook",
+    "start:vite-app": "turbo run start --filter vite-app",
+    "start": "turbo run start --parallel",
+    "test:e2e:ui": "dotenv -e ./.env.e2e -- turbo run test:e2e:ui",
+    "test:e2e": "dotenv -e ./.env.e2e -- turbo run test:e2e",
+    "test:storybook": "pnpm -r test-storybook",
+    "test:watch:ui": "vitest --ui",
+    "test:watch": "vitest",
+    "test": "vitest run",
+    "typecheck": "turbo run typecheck"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "3.11.2",
+    "@types/prompts": "2.4.9",
+    "@types/semver": "7.5.8",
+    "dotenv-cli": "7.4.4",
+    "eslint": "9.16.0",
+    "execa": "9.5.1",
+    "picocolors": "1.1.1",
+    "prettier": "3.4.2",
+    "prompts": "2.4.2",
+    "semver": "7.6.3",
+    "sherif": "1.0.2",
+    "simple-git-hooks": "2.11.1",
+    "tsx": "4.19.2",
+    "turbo": "2.3.3",
+    "typescript": "5.6.3",
+    "vitest": "2.1.8"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@types/react"
+      ],
+      "allowedVersions": {
+        "vite": "4"
+      }
+    }
+  },
+  "simple-git-hooks": {
+    "pre-push": "pnpm lint",
+    "commit-msg": "pnpm exec tsx scripts/verifyCommit.ts $1"
+  }
+}
